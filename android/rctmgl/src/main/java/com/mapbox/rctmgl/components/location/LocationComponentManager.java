@@ -2,6 +2,7 @@ package com.mapbox.rctmgl.components.location;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.TypedValue;
 
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
@@ -134,6 +135,15 @@ public class LocationComponentManager {
                     .foregroundDrawableStale(R.drawable.empty)
                     .gpsDrawable(R.drawable.empty)
                     .accuracyAlpha(0.0f);
+        } else {
+            TypedValue tv = new TypedValue();
+            mContext.getTheme().resolveAttribute(R.attr.colorPrimary, tv, true);
+            int primaryColor = tv.data;
+            builder = builder
+                .enableStaleState(false)
+                .bearingTintColor(primaryColor)
+                .foregroundTintColor(primaryColor)
+                .accuracyColor(primaryColor);
         }
         return builder.build();
     }
